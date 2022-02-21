@@ -52,7 +52,28 @@ class FlxVideo extends FlxBasic {
 
 		WebView.onClose=onClose;
 		WebView.onURLChanging=onURLChanging;
-		WebView.open(AndroidTools.getFileUrl(name), false, null, ['http://exitme(.*)']);
+
+        var altName:String = "";
+        altName = name;
+        altName.replace(".mp4", ".png")
+        var videoPlayer:String = "
+            <html>
+                <body style="background-color: black;">
+                    <video style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" audiobuffer="true" autoplay="true" poster="" + AndroidTools.getFileUrl(altName.replace(".mp4", ".png")) + "" preload="auto" id="player">
+                        <source src="" + AndroidTools.getFileUrl(name) + "" type="video/mp4"></source>
+                     </video>
+                </body>
+            </html>
+
+            <script type='text/javascript'>
+                document.getElementById('player').addEventListener('ended', myHandler, false);
+                function myHandler(e) {
+                    document.location.href='http://exitme';
+                }
+            </script> 
+        ";
+                
+        WebView.openHtml(html);
 
 		#elseif desktop
 		// by Polybius, check out PolyEngine! https://github.com/polybiusproxy/PolyEngine
