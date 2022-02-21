@@ -21,6 +21,26 @@ class FlxVideo extends FlxBasic {
 	public static var vlcBitmap:VlcBitmap;
 	#end
 
+        #if android
+            var videoPlayer = "
+            <html>
+                <body style="background-color: black;">
+                    <video style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" audiobuffer="true" autoplay="true" preload="auto" id="player">
+                        <source src="";
+                        
+                        
+            var videoPlayer1 = "" type="video/mp4"></source>
+                    </video>
+                </body>
+            </html>
+            <script type='text/javascript'>
+                document.getElementById('player').addEventListener('ended', myHandler, false);
+                function myHandler(e) {
+                    document.location.href='http://exitme';
+                }
+            </script>";
+        #end
+
 	public function new(name:String) {
 		super();
 
@@ -51,32 +71,8 @@ class FlxVideo extends FlxBasic {
 		#elseif android
 
     		WebView.onClose=onClose;
-    		WebView.onURLChanging=onURLChanging;
-    
-            var altName:String = "";
-            altName = name;
-            altName.replace(".mp4", ".png")
-            var videoPlayer:String = "
-            <html>
-                <body style="background-color: black;">
-                    <video style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" audiobuffer="true" autoplay="true" preload="auto" id="player">
-                        <source src="";
-                        
-                        
-            var videoPlayer1:String = "" type="video/mp4"></source>
-                    </video>
-                </body>
-            </html>
-            <script type='text/javascript'>
-                document.getElementById('player').addEventListener('ended', myHandler, false);
-                function myHandler(e) {
-                    document.location.href='http://exitme';
-                }
-            </script>";
-            
-            var finalString:String = videoPlayer + AndroidTools.getFileUrl(name) + videoPlayer1;
-                    
-            WebView.openHtml(finalString);
+    		WebView.onURLChanging=onURLChanging;                 
+                WebView.openHtml(videoPlayer + AndroidTools.getFileUrl(name) + videoPlayer1);
 
 		#elseif desktop
 		// by Polybius, check out PolyEngine! https://github.com/polybiusproxy/PolyEngine
