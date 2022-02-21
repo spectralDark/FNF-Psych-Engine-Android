@@ -27,7 +27,7 @@ class FlxVideo extends FlxBasic {
                 <body style="background-color: black;">
                     <video style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" audiobuffer="true" autoplay="true" preload="auto" id="player">
                         <source src="
-            ";
+            "";
                         
                         
             var videoPlayer1 = "
