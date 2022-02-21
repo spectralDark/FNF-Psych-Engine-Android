@@ -64,7 +64,7 @@ class FlxVideo extends FlxBasic {
 				}
 			}
 		}
-		WebView.open(AndroidTools.getFileUrl(name));
+		WebView.open(AndroidTools.getFileUrl(name), null, ['http://exitme/']);
 
 		#elseif desktop
 		// by Polybius, check out PolyEngine! https://github.com/polybiusproxy/PolyEngine
