@@ -21,29 +21,6 @@ class FlxVideo extends FlxBasic {
 	public static var vlcBitmap:VlcBitmap;
 	#end
 
-        #if android
-            var videoPlayer = "
-            <html>
-                <body style="background-color: black;">
-                    <video style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" audiobuffer="true" autoplay="true" preload="auto" id="player">
-                        <source src="
-            "";
-                        
-                        
-            var videoPlayer1 = "
-            " type="video/mp4"></source>
-                    </video>
-                </body>
-            </html>
-            <script type='text/javascript'>
-                document.getElementById('player').addEventListener('ended', myHandler, false);
-                function myHandler(e) {
-                    document.location.href='http://exitme';
-                }
-            </script>
-            ";
-        #end
-
 	public function new(name:String) {
 		super();
 
@@ -73,9 +50,23 @@ class FlxVideo extends FlxBasic {
 		netStream.play(name);
 		#elseif android
 
-    		WebView.onClose=onClose;
-    		WebView.onURLChanging=onURLChanging;                 
-                WebView.openHtml(videoPlayer + AndroidTools.getFileUrl(name) + videoPlayer1);
+		#if android
+
+		WebView.onClose = function(){
+        	        trace("WebView has been closed!");
+	                if (finishCallback != null){
+				finishCallback();
+			}
+		}
+		WebView.onURLChanging = function(url:String){
+	                trace("WebView is about to open: " + url);
+	                if (url == 'http://exitme'){
+	        	        if (finishCallback != null){
+					finishCallback();
+				}
+			}
+		}
+		WebView.open(AndroidTools.getFileUrl(name));
 
 		#elseif desktop
 		// by Polybius, check out PolyEngine! https://github.com/polybiusproxy/PolyEngine
@@ -158,17 +149,6 @@ class FlxVideo extends FlxBasic {
 				finishCallback();
 			}
 		}
-	#elseif android
-	function onClose() {
-		if (finishCallback != null){
-			finishCallback();
-		}
-	 }
-
-	function onURLChanging(url:String){
-		if (url == 'http://exitme/') 
-            onClose();
-	}
 	#end
 	#end
 }
