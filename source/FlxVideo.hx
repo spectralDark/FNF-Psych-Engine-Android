@@ -50,30 +50,33 @@ class FlxVideo extends FlxBasic {
 		netStream.play(name);
 		#elseif android
 
-		WebView.onClose=onClose;
-		WebView.onURLChanging=onURLChanging;
-
-        var altName:String = "";
-        altName = name;
-        altName.replace(".mp4", ".png")
-        var videoPlayer:String = "
+    		WebView.onClose=onClose;
+    		WebView.onURLChanging=onURLChanging;
+    
+            var altName:String = "";
+            altName = name;
+            altName.replace(".mp4", ".png")
+            var videoPlayer:String = "
             <html>
                 <body style="background-color: black;">
-                    <video style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" audiobuffer="true" autoplay="true" poster="" + AndroidTools.getFileUrl(altName.replace(".mp4", ".png")) + "" preload="auto" id="player">
-                        <source src="" + AndroidTools.getFileUrl(name) + "" type="video/mp4"></source>
-                     </video>
+                    <video style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" audiobuffer="true" autoplay="true" preload="auto" id="player">
+                        <source src="";
+                        
+                        
+            var videoPlayer1:String = "" type="video/mp4"></source>
+                    </video>
                 </body>
             </html>
-
             <script type='text/javascript'>
                 document.getElementById('player').addEventListener('ended', myHandler, false);
                 function myHandler(e) {
                     document.location.href='http://exitme';
                 }
-            </script> 
-        ";
-                
-        WebView.openHtml(html);
+            </script>";
+            
+            var finalString:String = videoPlayer + AndroidTools.getFileUrl(name) + videoPlayer1;
+                    
+            WebView.openHtml(finalString);
 
 		#elseif desktop
 		// by Polybius, check out PolyEngine! https://github.com/polybiusproxy/PolyEngine
