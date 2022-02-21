@@ -26,10 +26,12 @@ class FlxVideo extends FlxBasic {
             <html>
                 <body style="background-color: black;">
                     <video style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" audiobuffer="true" autoplay="true" preload="auto" id="player">
-                        <source src="";
+                        <source src="
+            ";
                         
                         
-            var videoPlayer1 = "" type="video/mp4"></source>
+            var videoPlayer1 = "
+            " type="video/mp4"></source>
                     </video>
                 </body>
             </html>
@@ -38,7 +40,8 @@ class FlxVideo extends FlxBasic {
                 function myHandler(e) {
                     document.location.href='http://exitme';
                 }
-            </script>";
+            </script>
+            ";
         #end
 
 	public function new(name:String) {
