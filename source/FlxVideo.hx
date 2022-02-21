@@ -50,8 +50,6 @@ class FlxVideo extends FlxBasic {
 		netStream.play(name);
 		#elseif android
 
-		#if android
-
 		WebView.onClose = function(){
         	        trace("WebView has been closed!");
 	                if (finishCallback != null){
