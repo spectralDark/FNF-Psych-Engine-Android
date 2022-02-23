@@ -2653,7 +2653,8 @@ class ChartingState extends MusicBeatState
 		if ((data != null) && (data.length > 0))
 		{
 			#if android
-                        openfl.system.System.setClipboard(data.trim());
+                        sys.io.File.saveContent(Main.getDataPath() + Paths.formatToSongPath(_song.song) + ".json", data.trim());
+                        android.AndroidTools.toast("File Saved Successfully!!", 1);
                         #else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
@@ -2698,7 +2699,8 @@ class ChartingState extends MusicBeatState
 		if ((data != null) && (data.length > 0))
 		{
 		        #if android
-                        sys.io.File.saveContent(Main.getDataPath() + _song.song + "events.json", data.trim());
+                        sys.io.File.saveContent(Main.getDataPath() + Paths.formatToSongPath(_song.song) + "events.json", data.trim());
+                        android.AndroidTools.toast("File Saved Successfully!!", 1);
                         #else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
