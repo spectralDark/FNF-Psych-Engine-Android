@@ -406,12 +406,13 @@ class MenuCharacterEditorState extends MusicBeatState
 		var data:String = Json.stringify(characterFile, "\t");
 		if (data.length > 0)
 		{
-			#if android
-                        openfl.system.System.setClipboard(data.trim());
-			#else
 			var splittedImage:Array<String> = imageInputText.text.trim().split('_');
 			var characterName:String = splittedImage[splittedImage.length-1].toLowerCase().replace(' ', '');
 
+			#if android
+                        sys.io.File.saveContent(Main.getDataPath() + characterName + ".json", data.trim());
+                        android.AndroidTools.toast("File Saved Successfully!!", 1);
+			#else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
